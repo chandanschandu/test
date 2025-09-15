@@ -1,0 +1,1172 @@
+  <!-- <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Chandan S - AI Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #121212;
+        color: #E0E0E0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #header {
+        background-color: #1E1E1E;
+        padding: 15px 30px;
+        border-bottom: 1px solid #333;
+        text-align: center;
+      }
+
+      #header h1 {
+        margin: 0;
+        font-size: 2em;
+        color: #FFFFFF;
+      }
+
+      #header .links a {
+        color: #BB86FC;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 1em;
+      }
+
+      #header .links a:hover {
+        text-decoration: underline;
+      }
+
+      #main-container {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      #avatar-container {
+        flex: 1;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 50%;
+        pointer-events: none;
+      }
+
+      #avatar {
+        width: 100%;
+        height: 100%;
+        max-width: 800px;
+        max-height: 800px;
+      }
+
+      #chat-container {
+        flex: 1;
+        background-color: #1E1E1E;
+        border-left: 1px solid #333;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        max-width: 500px;
+      }
+
+      #chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+        margin-bottom: 15px;
+      }
+
+      .message {
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 85%;
+        line-height: 1.4;
+      }
+
+      .message.user {
+        background-color: #373737;
+        color: #E0E0E0;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+        margin-left: auto;
+      }
+
+      .message.bot {
+        background-color: #BB86FC;
+        color: #121212;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      #chat-input-container {
+        display: flex;
+        border-top: 1px solid #333;
+        padding-top: 15px;
+      }
+
+      #chat-input {
+        flex: 1;
+        background-color: #373737;
+        color: #E0E0E0;
+        border: 1px solid #555;
+        border-radius: 20px;
+        padding: 10px 15px;
+        font-size: 1em;
+        outline: none;
+      }
+
+      #send-button {
+        background-color: #BB86FC;
+        color: #121212;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        cursor: pointer;
+        font-size: 1.2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+    #send-button:hover {
+        background-color: #a06cd5;
+    }
+
+    #stop-button {
+      background-color: #ff6b6b;
+      color: #121212;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #stop-button:hover {
+        background-color: #e05252;
+    }
+
+      #loading {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 16px;
+        background: rgba(0,0,0,0.5);
+        padding: 5px;
+        border-radius: 3px;
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js/+esm",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+          "talkinghead": "https://cdn.jsdelivr.net/gh/met4citizen/TalkingHead@1.5/modules/talkinghead.mjs"
+        }
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk@latest/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
+
+    <script type="module">
+    import { TalkingHead } from "talkinghead";
+
+    const portfolioData = {
+      "name": "Chandan S",
+      "contact": {
+        "phone": "91-7019558268",
+        "email": "chandandandan0101@gmail.com",
+        "github": "https://github.com/Chandanschandu",
+        "portfolio": "https://portfolio-dtgm.vercel.app",
+        "linkedin": "https://www.linkedin.com/in/chandan-s01"
+      },
+      "summary": "Aspiring GenAI Developer skilled in Python, Django, and modern frontend frameworks. Passionate about building intelligent, scalable applications using LLMs, RAG pipelines, and full-stack technologies. Experienced in fine-tuning transformer models, deploying ML workflows, and integrating AI into real-world solutions.",
+      "experience": [
+        {
+          "role": "Data Engineering Intern",
+          "company": "SofTronicLabs (Client: iSOCRATES)",
+          "duration": "Apr 2025 – Jul 2025",
+          "details": [
+            "Built and maintained ETL pipelines using Airbyte and Python, including custom connector setup and automation.",
+            "Integrated multiple data sources and ensured data integrity with validation and monitoring."
+          ]
+        },
+        {
+          "role": "Full Stack Intern",
+          "company": "WeAssist",
+          "duration": "Dec 2024 – Mar 2025",
+          "details": [
+            "Developed and maintained web applications using JavaScript, Vue.js, React.js, Python, Django, Frappe, Figma, HTML5, and CSS3.",
+            "Worked with SQL databases and utilized Postman for API testing and integration."
+          ]
+        },
+        {
+          "role": "AI Model Trainer",
+          "company": "Outlier (Part-Time)",
+          "duration": "2024",
+          "details": [
+            "Trained AI models in Python for accuracy and performance.",
+            "Utilized machine learning frameworks such as PyTorch and TensorFlow for advanced solutions."
+          ]
+        },
+        {
+          "role": "Full Stack Intern",
+          "company": "Kodnest",
+          "duration": "2024",
+          "details": [
+            "Collaborated on full-stack development projects using Django.",
+            "Created secure REST APIs using Django."
+          ]
+        },
+        {
+          "role": "Model Deployments & Hackathons",
+          "duration": "Nov 2024 – Present",
+          "details": [
+            "Fine-tuned a Facebook BART Large CNN model with custom-trained data using the SAMSum dataset (https://huggingface.co/Chandans01/custom-chandan-samsum).",
+            "Deployed an insurance intent classification model using DistilBERT (https://huggingface.co/Chandans01/insurance_intent_model_03).",
+            "Participated in Amdocs GenAI Graduate Hackathon 2024."
+          ]
+        }
+      ],
+      "education": [
+        {
+          "institution": "JSS Science and Technology University (Formerly SJCE)",
+          "degree": "Master of Computer Applications",
+          "duration": "Feb 2023 – Dec 2024",
+          "location": "Mysore, Karnataka",
+          "gpa": "8.72/10.0"
+        },
+        {
+          "institution": "Yuvaraj’s College, Mysore",
+          "degree": "Bachelor of Computer Applications",
+          "duration": "2018 – 2021",
+          "location": "Mysore, Karnataka",
+          "gpa": "8.7/10.0"
+        },
+        {
+          "institution": "BGS PU College",
+          "degree": "PCMC",
+          "duration": "2016 – 2018",
+          "location": "Mysore, Karnataka",
+          "gpa": "80/100"
+        }
+      ],
+      "skills": {
+        "programmingLanguages": ["Python", "Java", "C++", "C#", "SQL"],
+        "frontend": ["JavaScript", "Bootstrap", "HTML5", "CSS3"],
+        "backend": ["Django (REST API)", "FastAPI", "Flask API"],
+        "databases": ["MySQL", "PostgreSQL", "SQLite"],
+        "frameworks": ["Django", "PyTorch", "React", "Vue.js", "Transformers", "Decord", "Pandas", "Scikit-learn", "NumPy"],
+        "uiuxTools": ["Figma", "Canva", "draw.io"],
+        "tools": ["Visual Studio", "Jira", "IntelliJ IDEA", "Jupyter Notebook", "Raplet", "GitHub", "Hugging Face", "Postman"],
+        "versionControlDeployment": ["Git", "pytest", "Vercel", "Render", "PythonAnywhere", "Netlify"]
+      },
+      "projects": [
+        {
+          "title": "Driven Video Summarization with Transformer Model",
+          "description": "Implemented a video summarization pipeline that extracts frames, generates descriptions with BLIP2, and refines them using a custom-trained model.",
+          "technologies": ["Python", "TensorFlow", "PyTorch", "BLIP2", "Decord", "Transformers"]
+        },
+        {
+          "title": "Voice-Activated Assistant with Speech Recognition",
+          "description": "Built a voice-controlled assistant that performs web searches, opens applications, retrieves info, and provides Wikipedia summaries.",
+          "technologies": ["Python", "TensorFlow", "SpeechRecognition", "pyttsx3", "Wikipedia API"]
+        },
+        {
+          "title": "Car Booking Application with Django",
+          "description": "Developed a full-stack web app for vehicle bookings, sales, and services with authentication and dynamic booking management.",
+          "technologies": ["Django", "DRF", "MySQL", "JavaScript", "Bootstrap"]
+        },
+        {
+          "title": "REST API Development for Inventory Management",
+          "description": "Developed secure, scalable REST APIs with CRUD operations, versioning, and pagination for large datasets.",
+          "technologies": ["Django REST Framework", "MySQL", "Postman", "Swagger", "Git"]
+        }
+      ],
+      "certificates": [
+        "Python Essentials Certificate – CISCO Skills for All (2024)",
+        "SQL Certificate – Infosys Springboard (2024)"
+      ],
+      "methodologies": [
+        "Object-Oriented Programming (OOP)",
+        "Algorithms & Data Structures",
+        "Machine Learning",
+        "Multithreading",
+        "Web Development",
+        "REST APIs",
+        "Agile Methodologies",
+        "Software Development Life Cycle (SDLC)"
+      ],
+      "languages": {
+        "English": "Professional",
+        "Kannada": "Native"
+      },
+      "interests": [
+        "Open-Source Software",
+        "Cricket",
+        "Teaching",
+        "Vector Art",
+        "Video Editing",
+        "Fitness",
+        "Competitive Gaming (Conqueror Rank in PUBG Mobile Season 9)",
+        "Arcade Racing (Need for Speed series)"
+      ]
+    };
+
+    const visemeMap = ["sil","aa","aa","O","E","RR","I","U","O","O","O","I","kk","RR","nn","SS","CH","TH","FF","DD","kk","PP"];
+    let head;
+    let microsoftSynthesizer = null;
+    let visemesbuffer = {};
+    let prevViseme = null;
+    let currentBotMessageElem = null;
+    let wordSchedule = [];
+    let currentWordIndex = 0;
+    let speechStartTime = 0;
+    let animationFrameId = null;
+    let synthesisInProgress = false;
+    let abortController = new AbortController();
+
+    function resetLipsyncBuffers() {
+      visemesbuffer = { visemes: [], vtimes: [], vdurations: [] };
+      prevViseme = null;
+    }
+    resetLipsyncBuffers();
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const nodeAvatar = document.getElementById('avatar');
+      const nodeLoading = document.getElementById('loading');
+      const chatMessages = document.getElementById('chat-messages');
+      const chatInput = document.getElementById('chat-input');
+      const sendButton = document.getElementById('send-button');
+      const stopButton = document.getElementById('stop-button');
+
+      const azureTTSKey = "4bf263d4b43b4b648faa6d29ad009906";
+      const azureRegion = "eastus";
+
+      nodeLoading.textContent = "Loading Avatar...";
+      head = new TalkingHead(nodeAvatar, {
+        ttsEndpoint: "/gtts/",
+        cameraView: "upper",
+        lipsyncLang: "en"
+      });
+
+      try {
+        await head.showAvatar(
+          {
+            url: 'https://models.readyplayer.me/68c22c1a8ac0d37a66b6df1c.glb?morphTargets=ARKit,Oculus+Visemes,mouthOpen,mouthSmile,eyesClosed,eyesLookUp,eyesLookDown&textureSizeLimit=1024&textureFormat=png',
+            body: 'F',
+          },
+          (ev) => {
+            if (ev.lengthComputable) {
+              nodeLoading.textContent = `Loading ${Math.round((ev.loaded / ev.total) * 100)}%`;
+            }
+          }
+        );
+        nodeLoading.style.display = 'none';
+        startConversation();
+      } catch (error) {
+        console.error("Error loading avatar:", error);
+        nodeLoading.textContent = "Failed to load avatar.";
+      }
+
+      function startStreamingSession() {
+        if (!head.isStreaming) {
+          head.streamStart({
+            sampleRate: 48000,
+            mood: "happy",
+            gain: 0.5,
+            lipsyncType: "visemes",
+            lipsyncLang: "en",
+            waitForAudioChunks: true,
+            metrics: { enabled: true, intervalHz: 2 }
+          });
+        }
+      }
+
+      function textToSSML(text) {
+        return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US"><voice name="en-US-JasonNeural">${text}</voice></speak>`;
+      }
+
+      function azureSpeak(ssml, botMessageElem) {
+        wordSchedule = [];
+        currentWordIndex = 0;
+        speechStartTime = 0;
+        currentBotMessageElem = botMessageElem;
+        synthesisInProgress = true;
+        stopButton.style.display = 'flex';
+
+        if (!microsoftSynthesizer) {
+          const config = window.SpeechSDK.SpeechConfig.fromSubscription(azureTTSKey, azureRegion);
+          config.speechSynthesisOutputFormat = window.SpeechSDK.SpeechSynthesisOutputFormat.Raw48Khz16BitMonoPcm;
+          microsoftSynthesizer = new window.SpeechSDK.SpeechSynthesizer(config, null);
+
+          microsoftSynthesizer.synthesizing = (s, e) => {
+            if (speechStartTime === 0) {
+              speechStartTime = performance.now();
+            }
+            head.streamAudio({
+              audio: e.result.audioData,
+              visemes: visemesbuffer.visemes.splice(0),
+              vtimes: visemesbuffer.vtimes.splice(0),
+              vdurations: visemesbuffer.vdurations.splice(0),
+            });
+          };
+
+          microsoftSynthesizer.visemeReceived = (s, e) => {
+            const vtime = e.audioOffset / 10000;
+            const viseme = visemeMap[e.visemeId];
+            if (!head.isStreaming) return;
+            if (prevViseme) {
+              let vduration = vtime - prevViseme.vtime;
+              if (vduration < 40) vduration = 40;
+              visemesbuffer.visemes.push(prevViseme.viseme);
+              visemesbuffer.vtimes.push(prevViseme.vtime);
+              visemesbuffer.vdurations.push(vduration);
+            }
+            prevViseme = { viseme, vtime };
+          };
+
+          microsoftSynthesizer.wordBoundary = (s, e) => {
+            wordSchedule.push({ text: e.text, time: e.audioOffset / 10000 });
+          };
+        }
+
+        requestAnimationFrame(updateText);
+
+        microsoftSynthesizer.speakSsmlAsync(
+          ssml,
+          () => {
+            if (prevViseme) {
+              visemesbuffer.visemes.push(prevViseme.viseme);
+              visemesbuffer.vtimes.push(prevViseme.vtime);
+              visemesbuffer.vdurations.push(100);
+              prevViseme = null;
+            }
+            head.streamNotifyEnd();
+            resetLipsyncBuffers();
+            if (currentBotMessageElem) {
+              let fullText = wordSchedule.map(w => w.text).join(' ');
+              currentBotMessageElem.textContent = fullText;
+            }
+            currentBotMessageElem = null;
+            synthesisInProgress = false;
+            stopButton.style.display = 'none';
+          },
+          (error) => {
+            console.error("Azure speech synthesis error:", error);
+            resetLipsyncBuffers();
+            currentBotMessageElem = null;
+            synthesisInProgress = false;
+            stopButton.style.display = 'none';
+          }
+        );
+      }
+      
+      function updateText() {
+        if (!synthesisInProgress) {
+          return;
+        }
+
+        if (speechStartTime > 0 && currentBotMessageElem) {
+          const elapsedTime = performance.now() - speechStartTime;
+          
+          while (currentWordIndex < wordSchedule.length && elapsedTime >= wordSchedule[currentWordIndex].time) {
+            currentBotMessageElem.textContent += wordSchedule[currentWordIndex].text + ' ';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            currentWordIndex++;
+          }
+        }
+
+        requestAnimationFrame(updateText);
+      }
+      
+      function addMessage(text, sender) {
+        const messageElem = document.createElement('div');
+        messageElem.classList.add('message', sender);
+        messageElem.textContent = text;
+        chatMessages.appendChild(messageElem);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return messageElem;
+      }
+
+      async function handleUserMessage() {
+        const text = chatInput.value.trim();
+        if (text) {
+          addMessage(text, 'user');
+          chatInput.value = '';
+
+          const response = await getBotResponse(text);
+          const botMessageElem = addMessage("", 'bot');
+
+          const ssml = textToSSML(response);
+          if (!head.isStreaming) {
+            startStreamingSession();
+          }
+          azureSpeak(ssml, botMessageElem);
+        }
+      }
+
+      sendButton.addEventListener('click', handleUserMessage);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleUserMessage();
+        }
+      });
+
+      stopButton.addEventListener('click', () => {
+        if (synthesisInProgress) {
+          head.streamInterrupt();
+          synthesisInProgress = false;
+          abortController.abort();
+          if (currentBotMessageElem) {
+            let fullText = wordSchedule.slice(0, currentWordIndex).map(w => w.text).join(' ');
+            currentBotMessageElem.textContent = fullText;
+          }
+          currentBotMessageElem = null;
+          stopButton.style.display = 'none';
+        }
+      });
+
+      function startConversation() {
+        const welcomeMessage = `Hello! I'm an AI avatar representing Chandan S. You can ask me about his skills, experience, projects, or anything else you'd like to know.`;
+        addMessage(welcomeMessage, 'bot');
+      }
+
+      async function getBotResponse(userInput) {
+        abortController = new AbortController();
+        try {
+          const res = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            signal: abortController.signal,
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer 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" // <-- replace securely
+            },
+            body: JSON.stringify({
+              model: "gpt-4o-mini", 
+              messages: [
+                { role: "system", content: "You are an AI portfolio assistant for Chandan S. Always answer using his portfolio data." },
+                { role: "user", content: userInput },
+                { role: "system", content: "Here is Chandan's portfolio JSON data: " + JSON.stringify(portfolioData) }
+              ],
+            }),
+          });
+
+          const data = await res.json();
+          return data.choices?.[0]?.message?.content || "Sorry, I couldn’t generate a response.";
+        } catch (err) {
+          if (err.name === 'AbortError') {
+            return "Generation stopped.";
+          }
+          console.error(err);
+          return "Oops! Something went wrong connecting to AI.";
+        }
+      }
+    });
+  </script>
+
+  
+  </head>
+
+  <body>
+    <div id="header">
+      <h1>Chandan S - AI Portfolio</h1>
+      <div class="links">
+        <a href="https://github.com/Chandanschandu" target="_blank">GitHub</a> |
+        <a href="https://portfolio-dtgm.vercel.app" target="_blank">Portfolio</a> |
+        <a href="https://www.linkedin.com/in/chandan-s01" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+
+    <div id="main-container">
+      <div id="avatar-container">
+        <div id="avatar"></div>
+        <div id="loading"></div>
+      </div>
+      <div id="chat-container">
+        <div id="chat-messages"></div>
+      <div id="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Ask me about Chandan...">
+        <button id="send-button">&#9658;</button>
+        <button id="stop-button" style="display: none;">&#9632;</button>
+      </div>
+      </div>
+    </div>
+  </body>
+
+  </html> -->
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chandan S - AI Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      width: 100%; height: 100%;
+      margin: 0; padding: 0;
+      background-color: #121212; color: #E0E0E0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    #header { background:#1E1E1E; padding:15px 30px; border-bottom:1px solid #333; text-align:center; }
+    #header h1 { margin:0; font-size:2em; color:#fff; }
+    #header .links a { color:#BB86FC; text-decoration:none; margin:0 10px; font-size:1em; }
+    #header .links a:hover { text-decoration:underline; }
+    #main-container { display:flex; flex:1; overflow:hidden; }
+    #avatar-container { flex:1; display:flex; justify-content:center; align-items:center; min-width:50%; pointer-events:none; }
+    #avatar { width:100%; height:100%; max-width:900px; max-height:900px; }
+    #chat-container { flex:1; background:#1E1E1E; border-left:1px solid #333; display:flex; flex-direction:column; padding:20px; box-sizing:border-box; max-width:500px; }
+    #chat-messages { flex:1; overflow-y:auto; padding-right:10px; margin-bottom:15px; }
+    .message { margin-bottom:15px; padding:10px 15px; border-radius:18px; max-width:85%; line-height:1.4; }
+    .message.user { background:#373737; color:#E0E0E0; align-self:flex-end; border-bottom-right-radius:4px; margin-left:auto; }
+    .message.bot { background:#BB86FC; color:#121212; align-self:flex-start; border-bottom-left-radius:4px; }
+    #chat-input-container { display:flex; border-top:1px solid #333; padding-top:15px; }
+    #chat-input { flex:1; background:#373737; color:#E0E0E0; border:1px solid #555; border-radius:20px; padding:10px 15px; font-size:1em; outline:none; }
+    #send-button, #stop-button, #mic-button {
+      border:none; border-radius:50%; width:40px; height:40px;
+      cursor:pointer; font-size:1.2em;
+      display:flex; justify-content:center; align-items:center;
+      margin-left: 10px;
+    }
+    #send-button { background:#BB86FC; color:#121212; }
+    #send-button:hover { background:#a06cd5; }
+    #stop-button { background:#ff6b6b; color:#121212; display:none; }
+    #stop-button:hover { background:#e05252; }
+    #mic-button { background: #6c757d; color: #fff; }
+    #mic-button.listening { background: #dc3545; }
+    #loading { position:absolute; bottom:10px; left:10px; font-size:16px; background:rgba(0,0,0,0.5); padding:5px; border-radius:3px; }
+    .past-word { opacity:0.6; }
+    .current-word { background:#FFD54F; color:#121212; padding:2px 4px; border-radius:4px; }
+    .future-word { opacity:0.3; }
+
+    @media (max-width: 768px) {
+      #main-container {
+        flex-direction: column;
+      }
+      #avatar-container {
+        min-height: 50vh;
+        min-width: 100%;
+      }
+      #chat-container {
+        max-width: 100%;
+        border-left: none;
+        border-top: 1px solid #333;
+        height: 50vh;
+      }
+      #header h1 {
+        font-size: 1.5em;
+      }
+      #header .links a {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js/+esm",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "talkinghead": "https://cdn.jsdelivr.net/gh/met4citizen/TalkingHead@1.5/modules/talkinghead.mjs"
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk@latest/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
+
+  <script type="module">
+  import { TalkingHead } from "talkinghead";
+
+  const portfolioData = {
+      "name": "Chandan S",
+      "contact": {
+        "phone": "91-7019558268",
+        "email": "chandandandan0101@gmail.com",
+        "github": "https://github.com/Chandanschandu",
+        "portfolio": "https://portfolio-dtgm.vercel.app",
+        "linkedin": "https://www.linkedin.com/in/chandan-s01"
+      },
+      "summary": "Aspiring GenAI Developer skilled in Python, Django, and modern frontend frameworks. Passionate about building intelligent, scalable applications using LLMs, RAG pipelines, and full-stack technologies. Experienced in fine-tuning transformer models, deploying ML workflows, and integrating AI into real-world solutions.",
+      "experience": [
+        {
+          "role": "Data Engineering Intern",
+          "company": "SofTronicLabs (Client:iSOCRATES)",
+          "duration": "Apr 2025 – Jul 2025",
+          "details": [
+            "Built and maintained ETL pipelines using Airbyte and Python, including custom connector setup and automation.",
+            "Integrated multiple data sources and ensured data integrity with validation and monitoring."
+          ]
+        },
+        {
+          "role": "Full Stack Intern",
+          "company": "WeAssist",
+          "duration": "Dec 2024 – Mar 2025",
+          "details": [
+            "Developed and maintained web applications using JavaScript, Vue.js, React.js, Python, Django, Frappe, Figma, HTML5, and CSS3.",
+            "Worked with SQL databases and utilized Postman for API testing and integration"
+          ]
+        },
+        {
+          "role": "AI Model Trainer",
+          "company": "Outlier (Part-Time)",
+          "duration": "Nov 2024 – Present",
+          "details": [
+            "Trained AI models in Python for accuracy and performance",
+            "Utilized machine learning frameworks such as PyTorch and TensorFlow for advanced solutions"
+          ]
+        },
+        {
+          "role": "Full Stack Intern",
+          "company": "Kodnest",
+          "duration": "Mar2024 – Sep 2024",
+          "details": [
+            "Collaborated on full-stack development projects using Django",
+            "Created secure REST APIs using Django"
+          ]
+        },
+        {
+          "role": "Model Deployments & Hackathons",
+          "details": [
+            "Fine-tuned a Facebook BART Large CNN model with custom-trained data using the SAMSum dataset. The model is available at: https://huggingface.co/Chandans01/custom-chandan-samsum",
+            "Fine-tuned and deployed an insurance intent classification model using DistilBERT, published at: huggingface.co/Chandans01/insurance_intent_model_03",
+            "Amdocs GenAI Graduate Hackathon 2024"
+          ]
+        }
+      ],
+      "education": [
+        {
+          "institution": "JSS Science and Technology University (Formerly SJCE)",
+          "degree": "Master of Computer Applications",
+          "duration": "Feb 2023 – Dec 2024",
+          "location": "Mysore, Karnataka",
+          "gpa": "8.72/10.0"
+        },
+        {
+          "institution": "YUVARAJ’S COLLEGE, MYSORE",
+          "degree": "Bachelor of Computer Applications",
+          "duration": "2018 – 2021",
+          "location": "Mysore, Karnataka",
+          "gpa": "8.7/10.0"
+        },
+        {
+          "institution": "BGS PU College",
+          "degree": "PCMC",
+          "duration": "2016 – 2018",
+          "location": "Mysore, Karnataka",
+          "gpa": "80/100"
+        }
+      ],
+      "skills": {
+        "Programming Languages": ["Python", "Java", "C++", "C#", "SQL"],
+        "Frontend Expertise": ["JavaScript", "Bootstrap", "HTML5", "CSS3"],
+        "Database": ["MySQL", "PostgreSQL", "SQLite"],
+        "Backend Expertise": ["Django(REST API)", "Fast API", "Flask API"],
+        "Frameworks/Libraries": ["Django", "PyTorch", "React", "Vue.js", "Transformers", "Decord", "Pandas", "Scikit-learn", "NumPy"],
+        "UI/UX Tools": ["Figma", "Canva2", "draw.io"],
+        "DE/Tools": ["Visual Studio", "Jira", "IntelliJ IDEA", "Jupyter Notebook", "Raplet", "GitHub", "Hugging Face", "Postman"],
+        "Version Control and Deployement": ["Git and Github", "pytest", "Vercel", "Render", "Python Anywhere", "Netlify"]
+      },
+      "projects": [
+        {
+          "title": "Driven Video Summarization with Transformer Model",
+          "description": "Designed and implemented a video summarization pipeline that extracts frames from videos, generates descriptions using BLIP2, and refines them into concise summaries with a custom-trained model. Leveraged advanced AI techniques, including vision-language models and transformers, to enable intelligent understanding and summarization of video content.",
+          "technologies": ["Python", "Machine Learning", "Artificial Intelligence", "TensorFlow", "PyTorch", "BLIP2 (Salesforce)", "Decord", "XML", "Transformers"]
+        },
+        {
+          "title": "Voice-Activated Assistant with Speech Recognition and Task Automation",
+          "description": "Built a voice-controlled assistant using Python that listens to user commands, performs web searches, opens websites and applications, retrieves information, and provides Wikipedia summaries. Incorporated AI-driven speech recognition and natural language understanding using machine learning to enable seamless voice interaction and intelligent automation.",
+          "technologies": ["Python", "Machine Learning", "Artificial Intelligence", "TensorFlow", "pyttsx3", "Speech Recognition", "Wikipedia API"]
+        },
+        {
+          "title": "Car Booking Application with Django",
+          "description": "Developed a full-stack web application for vehicle bookings, sales, and services with real-time data updates and a user-friendly UI. Implemented user authentication, role-based access, dynamic booking management, and database integration.",
+          "technologies": ["Django", "Python", "DRF", "MySQL", "HTML5", "CSS3", "JavaScript", "Bootstrap", "Django Templates", "Git", "Postman"]
+        },
+        {
+          "title": "REST API Development for Inventory Management",
+          "description": "Developed secure and scalable REST APIs with CRUD operations, versioning, and pagination for large datasets. Integrated token-based authentication and optimized queries for performance",
+          "technologies": ["Django REST Framework", "MySQL", "Postman", "Swagger", "Git"]
+        }
+      ],
+      "certificates": [
+        "Python Essentials Certificate from CISCO Skills for All(2024): A course covering advanced Python concepts, including Object-Oriented Programming (OOP) and portfolio development.",
+        "SQL Certificate from Infosys Springboard (2024): A certification covering SQL fundamentals, database management, querying techniques, and relational database concepts."
+      ],
+      "methodologies": [
+        "Object-Oriented Programming(OOP)", "Algorithms", "Data Structures", "Machine Learning", "Multithreading", "Web Development", "REST APIs", "Agile Methodlogies", "Software Development Life Cycle (SDLC)"
+      ],
+      "languages": {
+        "English": "Professional",
+        "Kannada": "Native"
+      },
+      "interests": [
+        "Open-Source Software", "Cricket", "Teaching", "Vector Art", "Video Editing", "Fitness", "Competitive Gamer: Achieved Conqueror Rank in PUBG Mobile Season 9", "Arcade Racer Addict: Long-time player and fan of the Need for Speed series"
+      ]
+    };
+
+  const visemeMap = ["sil","aa","aa","O","E","RR","I","U","O","O","O","I","kk","RR","nn","SS","CH","TH","FF","DD","kk","PP"];
+  let head, microsoftSynthesizer=null;
+  let visemesbuffer={}, prevViseme=null;
+  let currentBotMessageElem=null, wordSchedule=[];
+  let currentWordIndex=0, speechStartTime=0, synthesisInProgress=false, animationFrameId=null;
+  let abortController=new AbortController();
+  let recognition, isListening = false;
+
+  function resetLipsyncBuffers() {
+    visemesbuffer={ visemes:[], vtimes:[], vdurations:[] };
+    prevViseme=null;
+  }
+  resetLipsyncBuffers();
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const nodeAvatar=document.getElementById('avatar');
+    const nodeLoading=document.getElementById('loading');
+    const chatMessages=document.getElementById('chat-messages');
+    const chatInput=document.getElementById('chat-input');
+    const sendButton=document.getElementById('send-button');
+    const stopButton=document.getElementById('stop-button');
+    const micButton=document.getElementById('mic-button');
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript.trim();
+        chatInput.value = transcript;
+        handleUserMessage();
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        if (isListening) stopListening();
+      };
+      
+      recognition.onend = () => {
+        micButton.classList.remove('listening');
+        micButton.textContent = '🎤';
+      };
+
+      micButton.addEventListener('click', () => {
+        if (isListening) {
+          stopListening();
+        } else {
+          startListening();
+        }
+      });
+    } else {
+      micButton.style.display = 'none';
+      addMessage("Sorry, your browser does not support voice recognition.", "bot");
+    }
+
+    function startListening() {
+      if (SpeechRecognition && !synthesisInProgress && !isListening) {
+        isListening = true;
+        micButton.classList.add('listening');
+        micButton.textContent = '...';
+        try {
+          recognition.start();
+        } catch(e) {
+          console.error("Error starting recognition:", e);
+          stopListening();
+        }
+      }
+    }
+
+    function stopListening() {
+      if (SpeechRecognition) {
+        isListening = false;
+        micButton.classList.remove('listening');
+        micButton.textContent = '🎤';
+        try { recognition.stop(); } catch(e) {}
+      }
+    }
+
+    const azureTTSKey="4bf263d4b43b4b648faa6d29ad009906";
+    const azureRegion="eastus";
+
+    nodeLoading.textContent="Loading Avatar...";
+    head=new TalkingHead(nodeAvatar,{
+      ttsEndpoint:"/gtts/", cameraView:"upper", lipsyncLang:"en"
+    });
+
+    try {
+      await head.showAvatar(
+        { url:"https://models.readyplayer.me/68c22c1a8ac0d37a66b6df1c.glb?morphTargets=ARKit,Oculus+Visemes,mouthOpen,mouthSmile,eyesClosed,eyesLookUp,eyesLookDown&textureSizeLimit=1024&textureFormat=png", body:"F" },
+        (ev)=>{ if(ev.lengthComputable){ nodeLoading.textContent=`Loading ${Math.round((ev.loaded/ev.total)*100)}%`; } }
+      );
+      nodeLoading.style.display="none";
+      startConversation();
+    } catch(err) {
+      console.error("Error loading avatar:",err);
+      nodeLoading.textContent="Failed to load avatar.";
+    }
+
+    function startStreamingSession() {
+      if(!head.isStreaming){
+        head.streamStart({
+          sampleRate:48000, mood:"happy", gain:0.5,
+          lipsyncType:"visemes", lipsyncLang:"en",
+          waitForAudioChunks:true, metrics:{ enabled:true, intervalHz:2 }
+        });
+      }
+    }
+
+    function textToSSML(text){
+      return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US"><voice name="en-US-JasonNeural">${text}</voice></speak>`;
+    }
+
+    function azureSpeak(ssml, botMessageElem){
+      wordSchedule=[]; currentWordIndex=0; speechStartTime=0;
+      currentBotMessageElem=botMessageElem; synthesisInProgress=true;
+      
+      if(!microsoftSynthesizer){
+        const config=window.SpeechSDK.SpeechConfig.fromSubscription(azureTTSKey,azureRegion);
+        config.speechSynthesisOutputFormat=window.SpeechSDK.SpeechSynthesisOutputFormat.Raw48Khz16BitMonoPcm;
+        microsoftSynthesizer=new window.SpeechSDK.SpeechSynthesizer(config,null);
+
+        microsoftSynthesizer.synthesizing=(s,e)=>{
+          if(speechStartTime===0){ speechStartTime=performance.now(); }
+          head.streamAudio({
+            audio:e.result.audioData,
+            visemes:visemesbuffer.visemes.splice(0),
+            vtimes:visemesbuffer.vtimes.splice(0),
+            vdurations:visemesbuffer.vdurations.splice(0)
+          });
+        };
+
+        microsoftSynthesizer.visemeReceived=(s,e)=>{
+          const vtime=e.audioOffset/10000;
+          const viseme=visemeMap[e.visemeId];
+          if(!head.isStreaming)return;
+          if(prevViseme){
+            let vduration=vtime-prevViseme.vtime;
+            if(vduration<40)vduration=40;
+            visemesbuffer.visemes.push(prevViseme.viseme);
+            visemesbuffer.vtimes.push(prevViseme.vtime);
+            visemesbuffer.vdurations.push(vduration);
+          }
+          prevViseme={ viseme,vtime };
+        };
+
+        microsoftSynthesizer.wordBoundary=(s,e)=>{
+          wordSchedule.push({ text:e.text, time:e.audioOffset/10000 });
+        };
+      }
+
+      animationFrameId = requestAnimationFrame(updateText);
+
+      microsoftSynthesizer.speakSsmlAsync(
+        ssml,
+        ()=>{
+          if(prevViseme){
+            visemesbuffer.visemes.push(prevViseme.viseme);
+            visemesbuffer.vtimes.push(prevViseme.vtime);
+            visemesbuffer.vdurations.push(100);
+            prevViseme=null;
+          }
+          head.streamNotifyEnd(); 
+          if(currentBotMessageElem){
+            let fullText=wordSchedule.map(w=>w.text).join(' ');
+            currentBotMessageElem.textContent=fullText;
+          }
+          currentBotMessageElem=null; 
+          synthesisInProgress=false;
+
+          const checkSpeakingInterval = setInterval(() => {
+            if (!head.isSpeaking) {
+              clearInterval(checkSpeakingInterval);
+              stopButton.style.display = 'none';
+              sendButton.style.display = 'flex';
+              micButton.style.display = 'flex';
+              resetLipsyncBuffers();
+              if (isListening) {
+                startListening();
+              }
+            }
+          }, 100);
+        },
+        (err)=>{
+          console.error("Azure TTS error:",err);
+          resetLipsyncBuffers(); currentBotMessageElem=null;
+          synthesisInProgress=false; stopButton.style.display='none';
+          sendButton.style.display='flex';
+          micButton.style.display = 'flex';
+        }
+      );
+    }
+
+    function updateText(){
+      if(!synthesisInProgress||!currentBotMessageElem)return;
+      const elapsed=performance.now()-speechStartTime;
+
+      // Find current word
+      while(currentWordIndex<wordSchedule.length && elapsed>=wordSchedule[currentWordIndex].time){
+        currentWordIndex++;
+      }
+
+      // Build transcript with karaoke-style highlight
+      let rendered=wordSchedule.map((w,idx)=>{
+        if(idx<currentWordIndex){ return `<span class="past-word">${w.text}</span>`; }
+        if(idx===currentWordIndex){ return `<span class="current-word">${w.text}</span>`; }
+        return `<span class="future-word">${w.text}</span>`;
+      }).join(' ');
+
+      currentBotMessageElem.innerHTML=rendered;
+      chatMessages.scrollTop=chatMessages.scrollHeight;
+      animationFrameId = requestAnimationFrame(updateText);
+    }
+
+    function addMessage(text,sender){
+      const el=document.createElement('div');
+      el.classList.add('message',sender);
+      el.textContent=text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop=chatMessages.scrollHeight;
+      return el;
+    }
+
+    async function handleUserMessage(){
+      const text=chatInput.value.trim();
+      if(text && !synthesisInProgress){
+        addMessage(text,'user'); chatInput.value='';
+        stopButton.style.display='flex';
+        sendButton.style.display='none';
+        micButton.style.display='none';
+
+        const response=await getBotResponse(text);
+        if (response === "Generation stopped.") {
+            addMessage("Process stopped by user.", 'bot');
+            stopButton.style.display = 'none';
+            sendButton.style.display = 'flex';
+            return;
+        }
+        
+        const botEl=addMessage("",'bot');
+        const ssml=textToSSML(response);
+        if(!head.isStreaming){ startStreamingSession(); }
+        azureSpeak(ssml,botEl);
+      }
+    }
+
+    sendButton.addEventListener('click',handleUserMessage);
+    chatInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ handleUserMessage(); } });
+    stopButton.addEventListener('click', () => {
+      abortController.abort(); 
+      
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+
+      if (head.isStreaming) {
+        head.streamInterrupt();
+      }
+
+      if (synthesisInProgress) {
+        if (microsoftSynthesizer) {
+          microsoftSynthesizer.close();
+          microsoftSynthesizer = null;
+        }
+      }
+      
+      if (currentBotMessageElem) {
+        let spokenText = wordSchedule.slice(0, currentWordIndex).map(w => w.text).join(' ');
+        currentBotMessageElem.textContent = spokenText ? spokenText + "..." : "Stopped.";
+      }
+      
+      synthesisInProgress = false;
+      currentBotMessageElem = null;
+      wordSchedule = [];
+      currentWordIndex = 0;
+      speechStartTime = 0;
+      
+      stopButton.style.display = 'none';
+      sendButton.style.display = 'flex';
+      micButton.style.display = 'flex';
+      resetLipsyncBuffers();
+    });
+
+    function startConversation(){
+      const welcome="Hello! I'm an AI avatar representing Chandan S. You can ask me about his skills, experience, projects, or anything else you'd like to know.";
+      const botMessageElem = addMessage("", 'bot');
+      const ssml = textToSSML(welcome);
+      if (!head.isStreaming) {
+        startStreamingSession();
+      }
+      azureSpeak(ssml, botMessageElem);
+    }
+
+    async function getBotResponse(userInput){
+      abortController=new AbortController();
+      try{
+        const res=await fetch("https://api.openai.com/v1/chat/completions",{
+          method:"POST", signal:abortController.signal,
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer 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"
+          },
+          body:JSON.stringify({
+            model:"gpt-4o-mini",
+            messages:[
+              { role:"system", content:"You are an AI portfolio assistant for Chandan S. Always answer using his portfolio data. Do not use markdown or any other formatting. Respond in plain text only." },
+              { role:"user", content:userInput },
+              { role: "system", content: "Here is Chandan's portfolio JSON data: " + JSON.stringify(portfolioData) }
+            ]
+          })
+        });
+        const data=await res.json();
+        return data.choices?.[0]?.message?.content || "Sorry, I couldn’t generate a response.";
+      }catch(err){
+        if(err.name==='AbortError') return "Generation stopped.";
+        console.error(err); return "Oops! Something went wrong.";
+      }
+    }
+  });
+  </script>
+</head>
+<body>
+  <div id="header">
+    <h1>Chandan S - AI Portfolio</h1>
+
+  </div>
+  <div id="main-container">
+    <div id="avatar-container">
+      <div id="avatar"></div>
+      <div id="loading"></div>
+    </div>
+    <div id="chat-container">
+      <div id="chat-messages"></div>
+      <div id="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Type or press 🎤 to talk...">
+        <button id="send-button" title="Send">&#9658;</button>
+        <button id="mic-button" title="Activate Voice">🎤</button>
+        <button id="stop-button" title="Stop Speaking">&#9632;</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
